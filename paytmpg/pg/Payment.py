@@ -7,7 +7,7 @@ from paytmpg.pg.response.InitiateTransactionResponse import InitiateTransactionR
 from paytmpg.pg.response.NativePaymentStatusResponse import NativePaymentStatusResponse
 
 from paytmpg.pg.utils.CommonUtil import CommonUtil
-from paytmpg.pg.utils.SignatureUtil import generate_checksum_by_str
+from paytmpg.pg.utils.SignatureUtil import generateSignature
 from paytmpg.pg.utils.stringUtil import is_empty, format_string
 
 from paytmpg.pg.constants.MerchantProperty import MerchantProperty
@@ -59,7 +59,7 @@ class Payment:
         :param body: body of which we are making checksum and adding to head
         :return:
         """
-        signature = generate_checksum_by_str(format_string(body), MerchantProperty.get_merchant_key())
+        signature = generateSignature(format_string(body), MerchantProperty.get_merchant_key())
         head.set_signature(signature)
 
     @staticmethod

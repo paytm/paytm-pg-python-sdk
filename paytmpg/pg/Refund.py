@@ -2,7 +2,7 @@ from sys import exc_info
 
 from paytmpg.pg.constants.MerchantProperty import MerchantProperty
 
-from paytmpg.pg.utils.SignatureUtil import generate_checksum_by_str
+from paytmpg.pg.utils.SignatureUtil import generateSignature
 from paytmpg.pg.utils.CommonUtil import CommonUtil
 from paytmpg.pg.utils.stringUtil import is_empty, format_string
 
@@ -52,7 +52,7 @@ class Refund:
         :return: None. As head is augmented by signature value
         """
         MerchantProperty.logger.debug("Refund:: set signature :: body is {}".format(format_string(body)))
-        signature = generate_checksum_by_str(format_string(body), MerchantProperty.get_merchant_key())
+        signature = generateSignature(format_string(body), MerchantProperty.get_merchant_key())
         head.set_signature(signature)
 
     @staticmethod

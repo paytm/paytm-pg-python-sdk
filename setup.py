@@ -1,8 +1,7 @@
 from setuptools import find_packages, setup
 from paytmpg.pg.constants.LibraryConstants import LibraryConstants
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+long_description = "Python sdk "
 
 setup(
     name='paytm-pg',

@@ -8,9 +8,9 @@ IV = "@@@@&&&&####$$$$"
 BLOCK_SIZE = 16
 
 
-def generate_checksum_by_str(param_str, merchant_key, salt=None):
+def generateSignature(param_str, merchant_key, salt=None):
     params_string = param_str
-    salt = salt if salt else __id_generator__(4)
+    salt = salt if salt else generateRandomString(4)
     final_string = '%s|%s' % (params_string, salt)
 
     hasher = sha256(final_string.encode())
@@ -18,18 +18,18 @@ def generate_checksum_by_str(param_str, merchant_key, salt=None):
 
     hash_string += salt
 
-    return __encode__(hash_string, IV, merchant_key)
+    return encrypt(hash_string, IV, merchant_key)
 
 
-def verify_checksum_by_str(param_str, merchant_key, checksum):
+def verifySignature(param_str, merchant_key, checksum):
     # Get salt
-    paytm_hash = __decode__(checksum, IV, merchant_key)
+    paytm_hash = decrypt(checksum, IV, merchant_key)
     salt = paytm_hash[-4:]
-    calculated_checksum = generate_checksum_by_str(param_str, merchant_key, salt=salt)
+    calculated_checksum = generateSignature(param_str, merchant_key, salt=salt)
     return calculated_checksum == checksum
 
 
-def __id_generator__(size=6, chars=ascii_uppercase + digits + ascii_lowercase):
+def generateRandomString(size=6, chars=ascii_uppercase + digits + ascii_lowercase):
     return ''.join(choice(chars) for _ in range(size))
 
 
@@ -37,7 +37,7 @@ __pad__ = lambda s: s + (BLOCK_SIZE - len(s) % BLOCK_SIZE) * chr(BLOCK_SIZE - le
 __unpad__ = lambda s: s[0:-ord(s[-1])]
 
 
-def __encode__(to_encode, iv, key):
+def encrypt(to_encode, iv, key):
     # Pad
     to_encode = __pad__(to_encode)
     # Encrypt
@@ -48,7 +48,7 @@ def __encode__(to_encode, iv, key):
     return to_encode.decode("UTF-8")
 
 
-def __decode__(to_decode, iv, key):
+def decrypt(to_decode, iv, key):
     # Decode
     to_decode = b64decode(to_decode.encode("UTF8"))
     # Decrypt

@@ -4,7 +4,7 @@ from paytmpg.pg.constants.MerchantProperty import MerchantProperty
 from paytmpg.pg.constants.LibraryConstants import LibraryConstants
 
 from paytmpg.pg.utils.ConverterUtil import JsonToObject
-from paytmpg.pg.utils.SignatureUtil import verify_checksum_by_str
+from paytmpg.pg.utils.SignatureUtil import verifySignature
 from paytmpg.pg.SDKException import SDKException
 from paytmpg.pg.utils.stringUtil import is_empty, format_string
 
@@ -33,7 +33,7 @@ class Request:
         MerchantProperty.logger.info("Request :: do_transaction response for request: {} ".format(res))
         MerchantProperty.logger.info("Request :: do_transaction response content for request: {} ".format(res.content))
         response.set_json_response(res.content)
-        if res.status_code == 500 or res.status_code == 400:
+        if res.status_code == "500" or res.status_code == "400":
             MerchantProperty.logger.info(
                 "Request :: do_transaction for request: status code {}".format(res.status_code))
             return SDKException.get_sdk_exception(str(res.content))
@@ -41,12 +41,12 @@ class Request:
         request_response = res.json()
         JsonToObject(request_response, response.get_response_object())
         result_info = response.get_response_object().get_body().get_result_info()
-        if response.get_response_object().get_head().get_signature() and (
+        if response.get_response_object().get_head().get_signature() is not None and (
                 LibraryConstants.SUCCESS_STATUS == result_info.get_result_status()
                 or LibraryConstants.TXN_SUCCESS_STATUS == result_info.get_result_status()
                 or LibraryConstants.PENDING_STATUS == result_info.get_result_status()) and \
-                not verify_checksum_by_str(str_body, MerchantProperty.get_merchant_key(),
-                                           response.get_response_object().get_head().get_signature()):
+                not verifySignature(str_body, MerchantProperty.get_merchant_key(),
+                                    response.get_response_object().get_head().get_signature()):
             raise SDKException.get_signature_validation_failed_exception(res.content)
 
     @staticmethod
@@ -55,7 +55,7 @@ class Request:
             raise SDKException.get_sdk_exception("Received response body is not proper.")
         MerchantProperty.logger.debug("Request :: get_body_from_response_content content: {}".format(content))
         head_idx = content.find(LibraryConstants.HEAD_TEXT, 0, len(content))
-        start_idx, end_idx = content.find(LibraryConstants.BODY_TEXT, 0, len(content))+6, len(content)-1
+        start_idx, end_idx = content.find(LibraryConstants.BODY_TEXT, 0, len(content))+6, len(content)-2
         if head_idx > start_idx:
             end_idx = head_idx-2
         MerchantProperty.logger.debug(
