@@ -18,7 +18,7 @@ from paytmpg.merchant.models.SDKResponse import SDKResponse
 
 
 class Payment:
-    """This class handle all call(which is from DemoApp) related to create transaction and payment status
+    """This class handle all call(which is from DemoApp) related to create transaction and payment status  
     """
     @classmethod
     def createTxnToken(cls, payment_details):
