@@ -1,11 +1,14 @@
 from setuptools import find_packages, setup
-from paytmpg.pg.constants.LibraryConstants import LibraryConstants
+from configparser import ConfigParser
 
 long_description = "Python sdk "
+config = ConfigParser()
+config.read("VERSION.ini")
+PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
 
 setup(
     name='paytm-pg',
-    version=LibraryConstants.PYTHON_SDK_VERSION,
+    version=PYTHON_SDK_VERSION,
     author='avneesh gupta',
     author_email='pgplus.tyche@paytm.com',
     description="Merchant util library which provide payment, payment status, refund and refund status",

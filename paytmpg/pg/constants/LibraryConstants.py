@@ -1,3 +1,6 @@
+from configparser import ConfigParser
+from os.path import abspath
+
 
 class LibraryConstants:
     """ Below constants are used in API calling
@@ -24,7 +27,6 @@ class LibraryConstants:
     BODY_TEXT = 'body'
     SIGNATURE_TEXT = 'signature'
     PYTHON_SDK_TEXT = "PYTHON-SDK"
-    PYTHON_SDK_VERSION = "1.0.0"
     X_REQUEST_ID = "X-Request-ID"
     """below text as these are used input name for redirection
     flow in process transaction api calling"""
@@ -37,6 +39,12 @@ class LibraryConstants:
     DEFAULT_REDIRECT_JSP = "pgRedirect.jsp"
     REQUEST_TYPE_PAYMENT = "Payment"
     MEDIA_TYPE_JSON = "application/json; charset=utf-8"
+
+    config = ConfigParser()
+    file_path = '/'.join(abspath(__file__).split('/')[:-4])
+    file_abs_path = file_path + "/VERSION.ini"
+    config.read(file_abs_path)
+    PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
 
     class Request:
         FOOD_WALLET = "FOOD"
