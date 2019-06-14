@@ -1,10 +1,18 @@
 from setuptools import find_packages, setup
-from configparser import ConfigParser
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
+from sys import version_info
 
 long_description = "Python sdk "
-config = ConfigParser()
+config = configparser.ConfigParser()
 config.read("VERSION.ini")
-PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
+
+if version_info[0] < 3:
+    PYTHON_SDK_VERSION = config.get('VERSION_INFO', 'package_version')
+else:
+    PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
 
 setup(
     name='paytm-pg',

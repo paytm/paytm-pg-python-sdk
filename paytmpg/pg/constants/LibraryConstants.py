@@ -1,4 +1,9 @@
-from configparser import ConfigParser
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
+
+from sys import version_info
 from os.path import abspath
 
 
@@ -40,11 +45,14 @@ class LibraryConstants:
     REQUEST_TYPE_PAYMENT = "Payment"
     MEDIA_TYPE_JSON = "application/json; charset=utf-8"
 
-    config = ConfigParser()
+    config = configparser.ConfigParser()
     file_path = '/'.join(abspath(__file__).split('/')[:-4])
     file_abs_path = file_path + "/VERSION.ini"
     config.read(file_abs_path)
-    PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
+    if version_info[0] < 3:
+        PYTHON_SDK_VERSION = config.get('VERSION_INFO', 'package_version')
+    else:
+        PYTHON_SDK_VERSION = config['VERSION_INFO']['package_version']
 
     class Request:
         FOOD_WALLET = "FOOD"

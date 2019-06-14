@@ -56,7 +56,7 @@ class Request:
         MerchantProperty.logger.debug("Request :: get_body_from_response_content content: {}".format(content))
         head_idx = content.find(LibraryConstants.HEAD_TEXT, 0, len(content))
         start_idx, end_idx = content.find(LibraryConstants.BODY_TEXT, 0, len(content)) + 6, len(
-            content) - 1 - 1 if content.endswith('\'') else 0
+            content) - (2 if content.endswith('\'') else 1)
         if head_idx > start_idx:
             end_idx = head_idx-2
         MerchantProperty.logger.debug(
