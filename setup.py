@@ -21,8 +21,9 @@ else:
 
 setup(
     name='paytm-pg',
+    package_data={'paytmpg': ['VERSION.ini']},
     version=PYTHON_SDK_VERSION,
-    author='avneesh gupta',
+    author='Avneesh Gupta',
     author_email='pgplus.tyche@paytm.com',
     description="Merchant util library which provide payment, payment status, refund and refund status",
     long_description=long_description,
