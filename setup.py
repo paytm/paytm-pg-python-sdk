@@ -3,11 +3,16 @@ try:
     import configparser
 except ImportError:
     import ConfigParser as configparser
+
 from sys import version_info
+from os.path import abspath
 
 long_description = "Python sdk "
 config = configparser.ConfigParser()
-config.read("VERSION.ini")
+file_path = '/'.join(abspath(__file__).split('/')[:-1])
+
+file_abs_path = file_path + "/paytmpg/VERSION.ini"
+config.read(file_abs_path)
 
 if version_info[0] < 3:
     PYTHON_SDK_VERSION = config.get('VERSION_INFO', 'package_version')

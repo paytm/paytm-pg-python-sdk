@@ -46,7 +46,7 @@ class LibraryConstants:
     MEDIA_TYPE_JSON = "application/json; charset=utf-8"
 
     config = configparser.ConfigParser()
-    file_path = '/'.join(abspath(__file__).split('/')[:-4])
+    file_path = '/'.join(abspath(__file__).split('/')[:-3])
     file_abs_path = file_path + "/VERSION.ini"
     config.read(file_abs_path)
     if version_info[0] < 3:
