@@ -28,13 +28,13 @@ class MerchantProperty:
     client_id = ""
 
     """callback url on which paytmpg will respond for api calls"""
-    callback_url = "https://pg-staging.paytm.in/MerchantSite/bankResponse"
+    callback_url = ""
 
     base_url = "https://securegw-stage.paytm.in"
-    initiate_txn_url = base_url + "/theia/api/v1/initiateTransaction"
-    refund_url = base_url + "/refund/api/v1/async/refund"
-    payment_status_url = base_url + "/merchant-status/api/v1/getPaymentStatus"
-    refund_status_url = "https://pgp-ite.paytm.in/refund/api/v1/refundStatus"
+    initiate_txn_url = base_url + "/order/initiate"
+    refund_url = base_url + "/refund/apply"
+    payment_status_url = base_url + "/v3/order/status"
+    refund_status_url = base_url + "/v2/refund/status"
 
     """Logging instance 
     Used for logging information according to set level which can be changed while initializing parameter of merchant
@@ -149,9 +149,10 @@ class MerchantProperty:
         cls.environment = environment
         if cls.environment == LibraryConstants.PRODUCTION_ENVIRONMENT:
             cls.base_url = "https://securegw.paytm.in"
-            cls.initiate_txn_url = cls.base_url + "/theia/api/v1/initiateTransaction"
-            cls.refund_url = cls.base_url + "/refund/api/v2/async/refund"
-            cls.payment_status_url = cls.base_url + "/merchant-status/api/v1/getPaymentStatus"
+            cls.initiate_txn_url = cls.base_url + "/order/initiate"
+            cls.refund_url = cls.base_url + "/refund/apply"
+            cls.payment_status_url = cls.base_url + "/v3/order/status"
+            cls.refund_status_url = cls.base_url + "/v2/refund/status"
 
     @classmethod
     def set_client_id(cls, client_id):
