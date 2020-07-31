@@ -9,6 +9,7 @@ class RefundDetail:
         self.__orderId = refund_detail_builder.order_id
         self.__refId = refund_detail_builder.ref_id
         self.__txnId = refund_detail_builder.txn_id
+        self.__txnType = refund_detail_builder.txn_type
         self.__refundAmount = refund_detail_builder.refund_amount
         self.__comments = refund_detail_builder.comments
         # [dict of user_sub_wallet_type: big_decimal]
@@ -25,6 +26,9 @@ class RefundDetail:
 
     def get_txn_id(self):
         return self.__txnId
+
+    def get_txn_type(self):
+        return self.__txnType   
 
     def get_refund_amount(self):
         return self.__refundAmount
@@ -57,6 +61,7 @@ class RefundDetail:
         refund_initiate_request_body.set_ref_id(self.get_ref_id())
         refund_initiate_request_body.set_extra_parameter_map(self.get_extra_params_map())
         refund_initiate_request_body.set_txn_id(self.get_txn_id())
+        refund_initiate_request_body.set_txn_type(self.get_txn_type())
         refund_initiate_request_body.set_refund_amount(self.get_refund_amount())
         refund_initiate_request_body.set_comments(self.get_comments())
         refund_initiate_request_body.set_sub_wallet_amount(self.get_sub_wallet_amount())
@@ -67,6 +72,7 @@ class RefundDetailBuilder:
     order_id = None
     ref_id = None
     txn_id = None
+    txn_type = None
     refund_amount = None
     comments = None
     # [dict of user_sub_wallet_type: big_decimal]
@@ -75,10 +81,11 @@ class RefundDetailBuilder:
     extra_params_map = None
     read_timeout = 30
 
-    def __init__(self, order_id, ref_id, txn_id, refund_amount):
+    def __init__(self, order_id, ref_id, txn_id, txn_type, refund_amount):
         self.order_id = order_id
         self.ref_id = ref_id
         self.txn_id = txn_id
+        self.txn_type = txn_type
         self.refund_amount = refund_amount
 
     def build(self):
@@ -98,6 +105,10 @@ class RefundDetailBuilder:
 
     def set_txn_id(self, txn_id):
         self.txn_id = txn_id
+        return self
+
+    def set_txn_type(self, txn_type):
+        self.txn_type = txn_type
         return self
 
     def set_refund_amount(self, refund_amount):
