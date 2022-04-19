@@ -1,9 +1,10 @@
 from paytmpg.pg.response.BaseResponseBody import BaseResponseBody
+from paytmpg.pg.response.BaseResponseBodyfeerate import BaseResponseBodyfeerate
 from paytmpg.pg.response.ChildTransaction import ChildTransaction
 from paytmpg.pg.utils.stringUtil import make_string, equals
 
 
-class NativePaymentStatusResponseBody(BaseResponseBody):
+class NativePaymentStatusResponseBody(BaseResponseBody,BaseResponseBodyfeerate):
 
     def __init__(self):
         self.customMerchantResponse = None
