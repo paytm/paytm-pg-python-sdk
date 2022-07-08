@@ -1,4 +1,4 @@
-from paytmpg.VERSION import package_version
+from VERSION import package_version
 
 
 class LibraryConstants:
