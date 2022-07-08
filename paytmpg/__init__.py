@@ -23,7 +23,7 @@ from paytmpg.pg.models.GoodsInfo import GoodsInfo
 from paytmpg.pg.models.UserInfo import UserInfo
 from paytmpg.pg.models.PaymentMode import PaymentMode
 from paytmpg.pg.models.Money import Money
-from paytmpg.VERSION import package_version
+from VERSION import package_version
 
 __all__ = [ExtendInfo, ShippingInfo, GoodsInfo, UserInfo, PaymentMode, Money, EChannelId, EnumCurrency,
            UserSubWalletType, LibraryConstants, MerchantProperty, Payment, Refund, PaymentDetailsBuilder,

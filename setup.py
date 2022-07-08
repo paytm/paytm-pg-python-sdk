@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-from paytmpg import package_version
+from VERSION import package_version
 
 long_description = "Python sdk "
 
