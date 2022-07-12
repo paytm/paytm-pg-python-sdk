@@ -1,9 +1,9 @@
 from setuptools import find_packages, setup
-from paytmpg import package_version
+#from paytmpg import package_version
 
 long_description = "Python sdk "
 
-PYTHON_SDK_VERSION = package_version
+PYTHON_SDK_VERSION = "1.1.1"
 setup(
     name='paytm-pg',
     package_data={'paytmpg': ['VERSION.ini']},
