@@ -3,13 +3,13 @@ from setuptools import find_packages, setup
 
 long_description = "Python sdk "
 
-PYTHON_SDK_VERSION = "1.1.1"
+PYTHON_SDK_VERSION = "1.1.2"
 setup(
     name='paytm-pg',
     package_data={'paytmpg': ['VERSION.ini']},
     version=PYTHON_SDK_VERSION,
-    author='Avneesh Gupta',
-    author_email='pgplus.tyche@paytm.com',
+    author='Integration Dev',
+    author_email='integration.dev@paytm.com',
     description="Merchant util library which provide payment, payment status, refund and refund status",
     long_description=long_description,
     long_description_content_type="text/markdown",

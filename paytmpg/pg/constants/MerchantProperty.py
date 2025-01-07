@@ -30,7 +30,7 @@ class MerchantProperty:
     """callback url on which paytmpg will respond for api calls"""
     callback_url = ""
 
-    base_url = "https://securegw-stage.paytm.in"
+    base_url = "https://securestage.paytmpayments.com"
     initiate_txn_url = base_url + "/order/initiate"
     refund_url = base_url + "/refund/apply"
     payment_status_url = base_url + "/v3/order/status"
@@ -148,7 +148,7 @@ class MerchantProperty:
     def set_environment(cls, environment):
         cls.environment = environment
         if cls.environment == LibraryConstants.PRODUCTION_ENVIRONMENT:
-            cls.base_url = "https://securegw.paytm.in"
+            cls.base_url = "https://secure.paytmpayments.com"
             cls.initiate_txn_url = cls.base_url + "/order/initiate"
             cls.refund_url = cls.base_url + "/refund/apply"
             cls.payment_status_url = cls.base_url + "/v3/order/status"
